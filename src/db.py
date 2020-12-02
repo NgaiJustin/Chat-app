@@ -42,6 +42,10 @@ class Message(db.Model):
     to = db.Column(db.Integer, db.ForeignKey('users.id'))
     channel_id = db.Column(db.Integer, db.ForeignKey('channels.id'))
 
+    def __init__(self, **kwargs):
+        self.message = kwargs.get("message")
+        self.channel_id = kwargs.get("channel_id")
+        
     def serialize(self):
         return {
             "Message id": self.id,

@@ -2,7 +2,7 @@ from db import db
 from flask import Flask
 import json
 import os
-from db import Course, Assignment, User
+from db import User, Channel, Message
 from flask import request
 app = Flask(__name__)
 db_filename = "chat.db"
@@ -35,10 +35,10 @@ def signIn():
     username = body.get("username")
     password = generate_password_hash(body.get("password"))
     # apparently generating pwd hash is a library method in werkzeug, no need to implement it
-
     newUser = User(username = username, password = password)
     db.session.add(newUser)
     db.session.commit()
+    return success_response(newUser.serialize())
 
 @app.route("/api/login/", methods=["POST"])
 def logIn():
@@ -55,27 +55,56 @@ def logIn():
     if not check_password_hash(user.password, password):
         return failure_response("Incorrect password")
     
-    #TODO
+    access_token = create_access_token(identity=username)
+    return success_response(json.dumps({
+            "id": user.id,
+            "token": access_token,
+            "username": user.username
+        }))
 
 @app.route("/api/newChat/", methods=["POST"])
 def newChat():
-    body = json.loads(request.data)
+    pass
 
-    # We check if a channel exists between the from and to users, if not we create one; if it already exists we use that channel.
-    # will use some stuff from pusher here
 
 @app.route("/api/pusher/authentication", methods=["POST"])
 def pusher_authentication():
     # This will be used to authorize channels. pusher requires this, nth to do with the app itself. will help handle sockets and realtime stuff
+    body = json.loads(request.data)
+    channel_name = body.get('channel_name')
+    socket_id = body.get('socket_id')
+    response = pusher.authenticate(
+        channel=channel_name,
+        socket_id=socket_id
+    )
+    return success_response(json.dumps(response))
 
 @app.route("/api/sendMsg", methdos=["POST"])
 def sendMsg():
-    pass
+    body = json.loads(request.data)
+    from_user = body.get("from_user")
+    to_user = body.get("to_user")
+    message = body.get("message")
+    channel_id = body.get("channel_id")
+
+    new_message = Message(message=message, channel_id=channel_id)
+    new_message.from_user = from_user
+    new_message.to_user = to_user
+    db.session.add(new_message)
+    db.session.commit()
+
+    message = new_message.serialize()
+
+    pusher.trigger(channel_id, 'new_message', message)
+    return success_response(message)
 
 @app.route("/api/getMsg/<int:channel_id>/", methods=["GET"])
 def getMsg(channel_id):
-    pass
+    all_messages = Message.query.filter(Message.channel_id == channel_id).all()
+    messages = [m.serialize() for m in all_messages]
+    return success_response(messages)
 
 @app.route("/api/getAllUsers/", methods=["GET"])
 def getAllUsers():
-    pass
+    users = [u.serialize() for u in User.query.all()]
+    return success_response(users)
