@@ -82,14 +82,14 @@ def pusher_authentication():
 @app.route("/api/sendMsg", methdos=["POST"])
 def sendMsg():
     body = json.loads(request.data)
-    from_user = body.get("from_user")
-    to_user = body.get("to_user")
+    fr = body.get("from_user")
+    to = body.get("to_user")
     message = body.get("message")
     channel_id = body.get("channel_id")
 
     new_message = Message(message=message, channel_id=channel_id)
-    new_message.from_user = from_user
-    new_message.to_user = to_user
+    new_message.fr = fr
+    new_message.to = to
     db.session.add(new_message)
     db.session.commit()
 
