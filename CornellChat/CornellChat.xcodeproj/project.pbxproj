@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,9 +11,10 @@
 		A2201FDC257D23A100B89E59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2201FDB257D23A100B89E59 /* AppDelegate.swift */; };
 		A2201FDE257D23A100B89E59 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2201FDD257D23A100B89E59 /* SceneDelegate.swift */; };
 		A2201FE0257D23A100B89E59 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2201FDF257D23A100B89E59 /* ViewController.swift */; };
-		A2201FE3257D23A100B89E59 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2201FE1257D23A100B89E59 /* Main.storyboard */; };
 		A2201FE5257D23A200B89E59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2201FE4257D23A200B89E59 /* Assets.xcassets */; };
-		A2201FE8257D23A200B89E59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2201FE6257D23A200B89E59 /* LaunchScreen.storyboard */; };
+		A2B3660B257D30B6000E09A7 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3660A257D30B6000E09A7 /* Course.swift */; };
+		A2B36612257D314A000E09A7 /* CoursesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B36611257D314A000E09A7 /* CoursesTableViewCell.swift */; };
+		A2B36619257D31F4000E09A7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B36618257D31F4000E09A7 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +23,11 @@
 		A2201FDB257D23A100B89E59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2201FDD257D23A100B89E59 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A2201FDF257D23A100B89E59 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A2201FE2257D23A100B89E59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A2201FE4257D23A200B89E59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A2201FE7257D23A200B89E59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A2201FE9257D23A200B89E59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2B3660A257D30B6000E09A7 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		A2B36611257D314A000E09A7 /* CoursesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesTableViewCell.swift; sourceTree = "<group>"; };
+		A2B36618257D31F4000E09A7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C8327F32DF76CF06A9E0CE43 /* Pods-CornellChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CornellChat.debug.xcconfig"; path = "Target Support Files/Pods-CornellChat/Pods-CornellChat.debug.xcconfig"; sourceTree = "<group>"; };
 		D11DCAF40F8FB2C156E017F8 /* Pods-CornellChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CornellChat.release.xcconfig"; path = "Target Support Files/Pods-CornellChat/Pods-CornellChat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,7 +50,6 @@
 				C8327F32DF76CF06A9E0CE43 /* Pods-CornellChat.debug.xcconfig */,
 				D11DCAF40F8FB2C156E017F8 /* Pods-CornellChat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -76,9 +77,10 @@
 				A2201FDB257D23A100B89E59 /* AppDelegate.swift */,
 				A2201FDD257D23A100B89E59 /* SceneDelegate.swift */,
 				A2201FDF257D23A100B89E59 /* ViewController.swift */,
-				A2201FE1257D23A100B89E59 /* Main.storyboard */,
+				A2B3660A257D30B6000E09A7 /* Course.swift */,
+				A2B36611257D314A000E09A7 /* CoursesTableViewCell.swift */,
+				A2B36618257D31F4000E09A7 /* NetworkManager.swift */,
 				A2201FE4257D23A200B89E59 /* Assets.xcassets */,
-				A2201FE6257D23A200B89E59 /* LaunchScreen.storyboard */,
 				A2201FE9257D23A200B89E59 /* Info.plist */,
 			);
 			path = CornellChat;
@@ -152,9 +154,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2201FE8257D23A200B89E59 /* LaunchScreen.storyboard in Resources */,
 				A2201FE5257D23A200B89E59 /* Assets.xcassets in Resources */,
-				A2201FE3257D23A100B89E59 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,32 +224,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2B36619257D31F4000E09A7 /* NetworkManager.swift in Sources */,
+				A2B3660B257D30B6000E09A7 /* Course.swift in Sources */,
 				A2201FE0257D23A100B89E59 /* ViewController.swift in Sources */,
 				A2201FDC257D23A100B89E59 /* AppDelegate.swift in Sources */,
+				A2B36612257D314A000E09A7 /* CoursesTableViewCell.swift in Sources */,
 				A2201FDE257D23A100B89E59 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		A2201FE1257D23A100B89E59 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A2201FE2257D23A100B89E59 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A2201FE6257D23A200B89E59 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A2201FE7257D23A200B89E59 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A2201FEA257D23A200B89E59 /* Debug */ = {
