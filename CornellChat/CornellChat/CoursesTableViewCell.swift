@@ -68,7 +68,6 @@ class CoursesTableViewCell: UITableViewCell {
         courseNumberLabel.text = "(CS \(course.code))"
         instructorLabel.text = course.instructor
 
-        // Cool way of doing an if else statement in one line
         contentView.backgroundColor = course.enrolled ? UIColor.green.withAlphaComponent(0.1) : UIColor.red.withAlphaComponent(0.1)
     }
 

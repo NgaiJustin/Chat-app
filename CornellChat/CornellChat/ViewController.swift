@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     var tableView: UITableView!
 
     // MARK: Data variables
-   // var user: User
-    var conversations: [Conversation] = []
+    // var user: User
+    var conversations = [Conversation]()
 
     // MARK: Constants
     let reuseIdentifier = "ConversationTableViewCellReuse"
@@ -25,12 +25,13 @@ class ViewController: UIViewController {
     let message2 = Message(id: "2", contents: "Hi", direction: .outgoing)
     let message3 = Message(id: "3", contents: "How are you?", direction: .incoming)
     let message4 = Message(id: "4", contents: "I'm good, how are you?", direction: .outgoing)
+    var messages = [Message]()
     
     //recipients
     let sampleUser = Recipient(imageName: "none", id: "1234", username: "sampleuser123")
     
     //conversations
-//    let sampleConversation = Conversation(id: "conversation1", name: "John Smith", messages: [message1,; message2; message3; message4], recipient: sampleUser)
+    //    let sampleConversation = Conversation(id: "conversation1", name: "John Smith", messages: [message1, message2, message3, message4], recipient: sampleUser)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +43,16 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
-
+        tableView.register(ConversationTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         view.addSubview(tableView)
 
         setupConstraints()
-        getCourses()
+        
+        // Hard coding stuff for now
+        let sampleConversation = Conversation(id: "conversation1", name: "John Smith", messages: [message1, message2, message3, message4], recipient: sampleUser)
+        conversations = [sampleConversation, sampleConversation, sampleConversation]
+    
+        //        getConvo() won't work until we have the endpoint
     }
 
     func setupConstraints() {
@@ -58,9 +64,8 @@ class ViewController: UIViewController {
             ])
         }
 
-    // TODO: How do we make a call to the internet to load our shopping cart?
-    func getCourses() {
-
+    func getConvo() {
+        NetworkManager.getConvo()
     }
 
 }
@@ -84,7 +89,6 @@ class ViewController: UIViewController {
 
     // MARK: - Table view delegate
     extension ViewController: UITableViewDelegate {
-        // Why is there nothing here?
     }
 
 

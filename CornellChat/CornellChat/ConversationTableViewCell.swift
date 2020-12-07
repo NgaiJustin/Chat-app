@@ -8,22 +8,70 @@
 import UIKit
 
 class ConversationTableViewCell: UITableViewCell {
+    
+//    var otherPersonImageView: UIImageView!
+    var otherPersonNameLabel: UILabel!
+    var convoPreviewLabel: UILabel!
+    var timeStampLabel: UILabel!
+    
+    let padding: CGFloat = 8
+    let nameLabelHeight: CGFloat = 16
+    let previewLabelHeight: CGFloat = 14
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        otherPersonNameLabel = UILabel()
+        otherPersonNameLabel.textColor = .black
+        otherPersonNameLabel.font = .systemFont(ofSize: 14)
+        otherPersonNameLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        convoPreviewLabel = UILabel()
+        convoPreviewLabel.textColor = .gray
+        convoPreviewLabel.font = .systemFont(ofSize: 12)
+        convoPreviewLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        timeStampLabel = UILabel()
+        timeStampLabel.textColor = .gray
+        timeStampLabel.font = .systemFont(ofSize: 14)
+        timeStampLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(otherPersonNameLabel)
+        contentView.addSubview(convoPreviewLabel)
+        contentView.addSubview(timeStampLabel)
+
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            otherPersonNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            otherPersonNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            otherPersonNameLabel.heightAnchor.constraint(equalToConstant: nameLabelHeight)
+            ])
+
+        NSLayoutConstraint.activate([
+            convoPreviewLabel.leadingAnchor.constraint(equalTo: otherPersonNameLabel.trailingAnchor, constant: padding),
+            convoPreviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            convoPreviewLabel.topAnchor.constraint(equalTo: otherPersonNameLabel.topAnchor),
+            convoPreviewLabel.heightAnchor.constraint(equalToConstant: nameLabelHeight)
+            ])
+
+        NSLayoutConstraint.activate([
+            timeStampLabel.leadingAnchor.constraint(equalTo: otherPersonNameLabel.leadingAnchor),
+            timeStampLabel.topAnchor.constraint(equalTo: otherPersonNameLabel.bottomAnchor, constant: padding),
+            timeStampLabel.heightAnchor.constraint(equalToConstant: previewLabelHeight)
+            ])
+    }
+    
+    func configure (for conversation: Conversation){
+        otherPersonNameLabel.text = conversation.name
+        convoPreviewLabel.text = conversation.messages.last?.contents
+        //        timeStampLabel = conversation.messages
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setUpConstraints() {
-        
-    }
-    
-    func configure (for conversation: Conversation){
-        
-    }
-
 
 }
