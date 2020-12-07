@@ -6,6 +6,7 @@ target 'CornellChat' do
   use_frameworks!
 
   # Pods for CornellChat
+  pod 'Alamofire'
   pod 'Google/SignIn'
   pod 'IGListKit'
   pod 'Presentr'

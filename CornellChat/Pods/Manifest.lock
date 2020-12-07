@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.4.0)
   - FirebaseAnalytics (3.9.0):
     - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
@@ -37,6 +38,7 @@ PODS:
   - ViewAnimator (3.0.2)
 
 DEPENDENCIES:
+  - Alamofire
   - Google/SignIn
   - Hero
   - IGListKit
@@ -47,6 +49,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseInstanceID
@@ -63,6 +66,7 @@ SPEC REPOS:
     - ViewAnimator
 
 SPEC CHECKSUMS:
+  Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
@@ -78,6 +82,6 @@ SPEC CHECKSUMS:
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
   ViewAnimator: 16435576cd44fca0b0d63147d5031fd3e91d295a
 
-PODFILE CHECKSUM: 5dae9afb332053930417288d2d26132d173230d4
+PODFILE CHECKSUM: 88e792f9e7eca8d47416b90f08e8b95374650ae8
 
 COCOAPODS: 1.10.0
