@@ -13,15 +13,29 @@ class ViewController: UIViewController {
     var tableView: UITableView!
 
     // MARK: Data variables
-    var courses = [Course]()
+   // var user: User
+    var conversations: [Conversation] = []
 
     // MARK: Constants
-    let reuseIdentifier = "ClassTableViewCellReuse"
+    let reuseIdentifier = "ConversationTableViewCellReuse"
 
+    // MARK: Fill-in Data
+    // messages
+    let message1 = Message(id: "1", contents: "Hello", direction: .incoming)
+    let message2 = Message(id: "2", contents: "Hi", direction: .outgoing)
+    let message3 = Message(id: "3", contents: "How are you?", direction: .incoming)
+    let message4 = Message(id: "4", contents: "I'm good, how are you?", direction: .outgoing)
+    
+    //recipients
+    let sampleUser = Recipient(imageName: "none", id: "1234", username: "sampleuser123")
+    
+    //conversations
+//    let sampleConversation = Conversation(id: "conversation1", name: "John Smith", messages: [message1,; message2; message3; message4], recipient: sampleUser)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        title = "Course Shopping Cart"
+        title = "Current Conversations"
         view.backgroundColor = .white
 
         tableView = UITableView()
@@ -54,12 +68,12 @@ class ViewController: UIViewController {
     // MARK: - Table view data source
     extension ViewController: UITableViewDataSource {
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return courses.count
+            return conversations.count
         }
 
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! CoursesTableViewCell
-            cell.configure(for: courses[indexPath.row])
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ConversationTableViewCell
+            cell.configure(for: conversations[indexPath.row])
             return cell
         }
 
