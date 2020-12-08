@@ -67,7 +67,7 @@ class ConversationTableViewCell: UITableViewCell {
     func configure (for conversation: Conversation){
         otherPersonNameLabel.text = conversation.name
         convoPreviewLabel.text = conversation.messages.last?.contents
-        //        timeStampLabel = conversation.messages
+        timeStampLabel.text = conversation.messages.last?.time
     }
     
     required init?(coder: NSCoder) {

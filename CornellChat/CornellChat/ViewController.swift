@@ -21,10 +21,10 @@ class ViewController: UIViewController {
 
     // MARK: Fill-in Data
     // messages
-    let message1 = Message(id: "1", contents: "Hello", direction: .incoming)
-    let message2 = Message(id: "2", contents: "Hi", direction: .outgoing)
-    let message3 = Message(id: "3", contents: "How are you?", direction: .incoming)
-    let message4 = Message(id: "4", contents: "I'm good, how are you?", direction: .outgoing)
+    let message1 = Message(id: "1", contents: "Hello", direction: .incoming, time: "1:25 pm")
+    let message2 = Message(id: "2", contents: "Hi", direction: .outgoing, time: "1:26 pm")
+    let message3 = Message(id: "3", contents: "How are you?", direction: .incoming, time: "2:01 pm")
+    let message4 = Message(id: "4", contents: "I'm good, how are you?", direction: .outgoing, time: "2:12 pm")
     var messages = [Message]()
     
     //recipients
@@ -82,14 +82,20 @@ class ViewController: UIViewController {
             return cell
         }
 
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 50
-        }
     }
 
     // MARK: - Table view delegate
-    extension ViewController: UITableViewDelegate {
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let conversation = conversations[indexPath.row]
+        let vc = ConversationViewController( convoName: conversation.recipient.username, messages : conversation.messages)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
 
 

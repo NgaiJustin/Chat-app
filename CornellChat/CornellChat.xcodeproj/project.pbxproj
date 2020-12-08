@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		02251CA1645BDB965F0F2C5A /* Pods_CornellChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CDCE05CE7508F20345A83A /* Pods_CornellChat.framework */; };
+		985AEE9A257F12C400755565 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985AEE99257F12C400755565 /* ConversationViewController.swift */; };
+		985AEE9D257F12DE00755565 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985AEE9C257F12DE00755565 /* MessageTableViewCell.swift */; };
 		98887CAD257DC0DE00C8A32E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98887CAC257DC0DE00C8A32E /* User.swift */; };
 		98887CB6257DC94F00C8A32E /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98887CB5257DC94F00C8A32E /* ConversationTableViewCell.swift */; };
 		A2201FDC257D23A100B89E59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2201FDB257D23A100B89E59 /* AppDelegate.swift */; };
@@ -21,6 +23,8 @@
 
 /* Begin PBXFileReference section */
 		47CDCE05CE7508F20345A83A /* Pods_CornellChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CornellChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		985AEE99257F12C400755565 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		985AEE9C257F12DE00755565 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		98887CAC257DC0DE00C8A32E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		98887CB5257DC94F00C8A32E /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		A2201FD8257D23A100B89E59 /* CornellChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CornellChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +86,9 @@
 				A2201FDD257D23A100B89E59 /* SceneDelegate.swift */,
 				A2201FDF257D23A100B89E59 /* ViewController.swift */,
 				A2B3660A257D30B6000E09A7 /* Course.swift */,
+				985AEE9C257F12DE00755565 /* MessageTableViewCell.swift */,
 				98887CAC257DC0DE00C8A32E /* User.swift */,
+				985AEE99257F12C400755565 /* ConversationViewController.swift */,
 				A2B36611257D314A000E09A7 /* CoursesTableViewCell.swift */,
 				98887CB5257DC94F00C8A32E /* ConversationTableViewCell.swift */,
 				A2B36618257D31F4000E09A7 /* NetworkManager.swift */,
@@ -232,6 +238,8 @@
 			files = (
 				98887CB6257DC94F00C8A32E /* ConversationTableViewCell.swift in Sources */,
 				A2B36619257D31F4000E09A7 /* NetworkManager.swift in Sources */,
+				985AEE9A257F12C400755565 /* ConversationViewController.swift in Sources */,
+				985AEE9D257F12DE00755565 /* MessageTableViewCell.swift in Sources */,
 				A2B3660B257D30B6000E09A7 /* Course.swift in Sources */,
 				A2201FE0257D23A100B89E59 /* ViewController.swift in Sources */,
 				A2201FDC257D23A100B89E59 /* AppDelegate.swift in Sources */,

@@ -22,6 +22,7 @@ struct Message {
     var id : String // message id - not sure if it is a string
     var contents : String
     var direction : Direction
+    var time : String
 }
 
 struct Conversation {
