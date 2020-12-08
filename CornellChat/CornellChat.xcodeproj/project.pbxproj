@@ -16,9 +16,10 @@
 		A2201FDE257D23A100B89E59 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2201FDD257D23A100B89E59 /* SceneDelegate.swift */; };
 		A2201FE0257D23A100B89E59 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2201FDF257D23A100B89E59 /* ViewController.swift */; };
 		A2201FE5257D23A200B89E59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2201FE4257D23A200B89E59 /* Assets.xcassets */; };
-		A2B3660B257D30B6000E09A7 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3660A257D30B6000E09A7 /* Course.swift */; };
-		A2B36612257D314A000E09A7 /* CoursesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B36611257D314A000E09A7 /* CoursesTableViewCell.swift */; };
+		A226588A257FC99700123EBE /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2265889257FC99700123EBE /* RegisterViewController.swift */; };
+		A226588E257FCCC200123EBE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226588D257FCCC200123EBE /* Extensions.swift */; };
 		A2B36619257D31F4000E09A7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B36618257D31F4000E09A7 /* NetworkManager.swift */; };
+		A2EFBFA6257FC6D6007C744F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EFBFA5257FC6D6007C744F /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +34,10 @@
 		A2201FDF257D23A100B89E59 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A2201FE4257D23A200B89E59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2201FE9257D23A200B89E59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A2B3660A257D30B6000E09A7 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
-		A2B36611257D314A000E09A7 /* CoursesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesTableViewCell.swift; sourceTree = "<group>"; };
+		A2265889257FC99700123EBE /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		A226588D257FCCC200123EBE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A2B36618257D31F4000E09A7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A2EFBFA5257FC6D6007C744F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C8327F32DF76CF06A9E0CE43 /* Pods-CornellChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CornellChat.debug.xcconfig"; path = "Target Support Files/Pods-CornellChat/Pods-CornellChat.debug.xcconfig"; sourceTree = "<group>"; };
 		D11DCAF40F8FB2C156E017F8 /* Pods-CornellChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CornellChat.release.xcconfig"; path = "Target Support Files/Pods-CornellChat/Pods-CornellChat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,20 +84,53 @@
 		A2201FDA257D23A100B89E59 /* CornellChat */ = {
 			isa = PBXGroup;
 			children = (
-				A2201FDB257D23A100B89E59 /* AppDelegate.swift */,
-				A2201FDD257D23A100B89E59 /* SceneDelegate.swift */,
-				A2201FDF257D23A100B89E59 /* ViewController.swift */,
-				A2B3660A257D30B6000E09A7 /* Course.swift */,
-				985AEE9C257F12DE00755565 /* MessageTableViewCell.swift */,
-				98887CAC257DC0DE00C8A32E /* User.swift */,
-				985AEE99257F12C400755565 /* ConversationViewController.swift */,
-				A2B36611257D314A000E09A7 /* CoursesTableViewCell.swift */,
-				98887CB5257DC94F00C8A32E /* ConversationTableViewCell.swift */,
-				A2B36618257D31F4000E09A7 /* NetworkManager.swift */,
+				A2EFBF9F257FC586007C744F /* Others */,
+				A2EFBFA1257FC5A6007C744F /* Models */,
+				A2EFBFA2257FC5C9007C744F /* Views */,
+				A2EFBFA0257FC594007C744F /* Controllers */,
 				A2201FE4257D23A200B89E59 /* Assets.xcassets */,
 				A2201FE9257D23A200B89E59 /* Info.plist */,
 			);
 			path = CornellChat;
+			sourceTree = "<group>";
+		};
+		A2EFBF9F257FC586007C744F /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				A2B36618257D31F4000E09A7 /* NetworkManager.swift */,
+				A2201FDB257D23A100B89E59 /* AppDelegate.swift */,
+				A2201FDD257D23A100B89E59 /* SceneDelegate.swift */,
+				A226588D257FCCC200123EBE /* Extensions.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		A2EFBFA0257FC594007C744F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A2201FDF257D23A100B89E59 /* ViewController.swift */,
+				A2EFBFA5257FC6D6007C744F /* LoginViewController.swift */,
+				A2265889257FC99700123EBE /* RegisterViewController.swift */,
+				985AEE99257F12C400755565 /* ConversationViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A2EFBFA1257FC5A6007C744F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				98887CAC257DC0DE00C8A32E /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A2EFBFA2257FC5C9007C744F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				985AEE9C257F12DE00755565 /* MessageTableViewCell.swift */,
+				98887CB5257DC94F00C8A32E /* ConversationTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		FF2B2EDF95AE630470F84D64 /* Frameworks */ = {
@@ -236,15 +271,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2EFBFA6257FC6D6007C744F /* LoginViewController.swift in Sources */,
+				A226588A257FC99700123EBE /* RegisterViewController.swift in Sources */,
 				98887CB6257DC94F00C8A32E /* ConversationTableViewCell.swift in Sources */,
 				A2B36619257D31F4000E09A7 /* NetworkManager.swift in Sources */,
 				985AEE9A257F12C400755565 /* ConversationViewController.swift in Sources */,
 				985AEE9D257F12DE00755565 /* MessageTableViewCell.swift in Sources */,
-				A2B3660B257D30B6000E09A7 /* Course.swift in Sources */,
 				A2201FE0257D23A100B89E59 /* ViewController.swift in Sources */,
 				A2201FDC257D23A100B89E59 /* AppDelegate.swift in Sources */,
 				98887CAD257DC0DE00C8A32E /* User.swift in Sources */,
-				A2B36612257D314A000E09A7 /* CoursesTableViewCell.swift in Sources */,
+				A226588E257FCCC200123EBE /* Extensions.swift in Sources */,
 				A2201FDE257D23A100B89E59 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

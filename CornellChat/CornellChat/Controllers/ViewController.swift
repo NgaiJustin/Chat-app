@@ -54,6 +54,18 @@ class ViewController: UIViewController {
     
         //        getConvo() won't work until we have the endpoint
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        let isLoggedIn = UserDefaults.standard.bool(forKey: "logged_in")
+        
+        if !isLoggedIn {
+            let vc = LoginViewController()
+            let n = UINavigationController(rootViewController: vc)
+            n.modalPresentationStyle = .fullScreen
+            present(n, animated: false)
+        }
+    }
 
     func setupConstraints() {
             NSLayoutConstraint.activate([
