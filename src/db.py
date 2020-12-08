@@ -15,7 +15,7 @@ class User(db.Model):
     def serialize(self):
         return {
             "User id": self.id,
-            "username": self.username 
+            "Username": self.username 
         }
 
 class Channel(db.Model):
@@ -25,11 +25,15 @@ class Channel(db.Model):
     fr = db.Column(db.Integer, db.ForeignKey('users.id'))
     to = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    def __init__(self, **kwargs):
+        self.name = kwargs.get("name")
+        self.fr = kwargs.get("fr")
+        self.to = kwargs.get("to")
+        
     def serialize(self):
         return {
             "Channel id": self.id,
             "Channel name": self.name,
-            # Will prob be better if we serialized this too, now it just shows the id
             "From": self.fr,
             "To": self.to
         }
@@ -45,6 +49,8 @@ class Message(db.Model):
     def __init__(self, **kwargs):
         self.message = kwargs.get("message")
         self.channel_id = kwargs.get("channel_id")
+        self.fr = kwargs.get("fr")
+        self.to = kwargs.get("to")
         
     def serialize(self):
         return {
