@@ -126,6 +126,7 @@ class LoginViewController: UIViewController {
                 return
         }
         // Login — need endpoint info to continue here
+        UserDefaults.standard.setValue(true, forKey: "logged_in")
         dismiss(animated: true, completion: nil) // fix this later, for now we want to see the next screen
     }
     

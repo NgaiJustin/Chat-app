@@ -64,7 +64,6 @@ class ViewController: UIViewController {
             let n = UINavigationController(rootViewController: vc)
             n.modalPresentationStyle = .fullScreen
             present(n, animated: false)
-
         }
 
     }

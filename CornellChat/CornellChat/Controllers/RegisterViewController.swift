@@ -175,10 +175,10 @@ class RegisterViewController: UIViewController {
     
     @objc private func registerButtonTapped(){
         // Remove keyboard
-        netidField.resignFirstResponder()
-        passwordField.resignFirstResponder()
         firstNameField.resignFirstResponder()
         lastNameField.resignFirstResponder()
+        netidField.resignFirstResponder()
+        passwordField.resignFirstResponder()
         
         guard let netid = netidField.text,
               let pw = passwordField.text,
@@ -192,7 +192,6 @@ class RegisterViewController: UIViewController {
                 return
         }
         // Login with backend
-        
     }
     
     func registerError(){
