@@ -67,6 +67,7 @@ class LoginViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .red
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.addTarget(self, action: #selector (loginButtonTapped), for: .touchUpInside)
         
         // Prettify
         button.layer.cornerRadius = 12
@@ -125,7 +126,7 @@ class LoginViewController: UIViewController {
                 return
         }
         // Login — need endpoint info to continue here
-        
+        dismiss(animated: true, completion: nil) // fix this later, for now we want to see the next screen
     }
     
     func loginError(){
