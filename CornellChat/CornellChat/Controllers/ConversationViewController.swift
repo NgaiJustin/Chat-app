@@ -39,24 +39,32 @@ class ConversationViewController: UIViewController {
         messageView.translatesAutoresizingMaskIntoConstraints = false
         messageView.register(ConversationTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         view.addSubview(messageView)
+        
+        writingField = UITextField()
+        writingField.translatesAutoresizingMaskIntoConstraints = false
+        writingField.placeholder = "message..."
+        writingField.backgroundColor = .blue
+        writingField.borderStyle = .roundedRect
+        view.addSubview(writingField)
+        
 
-        setupConstraints()
+        setupConstraintsConversation()
 
         // Do any additional setup after loading the view.
     }
-    func setupConstraints() {
+    func setupConstraintsConversation() {
         NSLayoutConstraint.activate([
-            writingField.topAnchor.constraint(equalTo: view.topAnchor),
-            writingField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            writingField.heightAnchor.constraint(equalToConstant: 20),
-            writingField.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            writingField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            writingField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            writingField.heightAnchor.constraint(equalToConstant: 50),
+            writingField.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            messageView.topAnchor.constraint(equalTo: view.topAnchor),
-            messageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            messageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            messageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            messageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            messageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            messageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            messageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
             ])
         }
     
@@ -76,16 +84,16 @@ extension ConversationViewController: UITableViewDataSource {
     }
     
     
-//        func messageView(_ messageView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//            return messages.count
-//        }
-//
-//        func messageView(_ messageView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//            let cell = messageView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
-//            let message = messages[indexPath.row]
-//            cell.configure(for: message)
-//            return cell
-//        }
+        func messageView(_ messageView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return messages.count
+        }
+
+        func messageView(_ messageView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = messageView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
+            let message = messages[indexPath.row]
+            cell.configure(for: message)
+            return cell
+        }
         
         func messageView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 60
