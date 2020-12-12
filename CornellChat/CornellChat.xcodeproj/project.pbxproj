@@ -18,6 +18,7 @@
 		A2201FE5257D23A200B89E59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2201FE4257D23A200B89E59 /* Assets.xcassets */; };
 		A226588A257FC99700123EBE /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2265889257FC99700123EBE /* RegisterViewController.swift */; };
 		A226588E257FCCC200123EBE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226588D257FCCC200123EBE /* Extensions.swift */; };
+		A291851F25855564000CC3B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A291851E25855564000CC3B5 /* GoogleService-Info.plist */; };
 		A2B36619257D31F4000E09A7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B36618257D31F4000E09A7 /* NetworkManager.swift */; };
 		A2EFBFA6257FC6D6007C744F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EFBFA5257FC6D6007C744F /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		A2201FE9257D23A200B89E59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2265889257FC99700123EBE /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		A226588D257FCCC200123EBE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A291851E25855564000CC3B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A2B36618257D31F4000E09A7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A2EFBFA5257FC6D6007C744F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C8327F32DF76CF06A9E0CE43 /* Pods-CornellChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CornellChat.debug.xcconfig"; path = "Target Support Files/Pods-CornellChat/Pods-CornellChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		A2201FDA257D23A100B89E59 /* CornellChat */ = {
 			isa = PBXGroup;
 			children = (
+				A291851E25855564000CC3B5 /* GoogleService-Info.plist */,
 				A2EFBF9F257FC586007C744F /* Others */,
 				A2EFBFA1257FC5A6007C744F /* Models */,
 				A2EFBFA2257FC5C9007C744F /* Views */,
@@ -153,7 +156,6 @@
 				A2201FD5257D23A100B89E59 /* Frameworks */,
 				A2201FD6257D23A100B89E59 /* Resources */,
 				1FFAFB463CEC41DFF7264780 /* [CP] Embed Pods Frameworks */,
-				3E4BABBFF78708ABB53EABE4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -202,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2201FE5257D23A200B89E59 /* Assets.xcassets in Resources */,
+				A291851F25855564000CC3B5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,23 +248,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3E4BABBFF78708ABB53EABE4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CornellChat/Pods-CornellChat-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CornellChat/Pods-CornellChat-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CornellChat/Pods-CornellChat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
