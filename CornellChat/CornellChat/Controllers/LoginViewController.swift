@@ -78,6 +78,19 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Make navigation bar translucent
+        self.navigationController?.view.backgroundColor = .clear
+        
+        // Nice background
+        let img = UIImage(named: "cornell2")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),                                                              resizingMode: .stretch)
+        scrollView.backgroundColor = UIColor(patternImage: img)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = scrollView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.addSubview(blurEffectView)
+        
         title = "Log in"
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
@@ -90,6 +103,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(netidField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+    
     }
     
     override func viewDidLayoutSubviews() {

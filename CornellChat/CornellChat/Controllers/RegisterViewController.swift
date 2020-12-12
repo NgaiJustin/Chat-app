@@ -116,6 +116,18 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Make navigation bar translucent
+        self.navigationController?.view.backgroundColor = .clear
+        
+        // Nice background
+        scrollView.backgroundColor = UIColor(patternImage: UIImage(named: "cornell")!)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = scrollView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.addSubview(blurEffectView)
+        
         title = "Register"
         view.backgroundColor = .white
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
