@@ -6,23 +6,24 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
-    let logoImageView: UIImageView = {
+    private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
         return scrollView
     }()
     
-    let netidField: UITextField = {
+    private let netidField: UITextField = {
         let field = UITextField()
         field.placeholder = "NetID..."
         field.autocapitalizationType = .none
@@ -41,7 +42,7 @@ class LoginViewController: UIViewController {
         return field
     }()
     
-    let passwordField: UITextField = {
+    private let passwordField: UITextField = {
         let field = UITextField()
         field.placeholder = "Password..."
         field.autocapitalizationType = .none
@@ -61,12 +62,13 @@ class LoginViewController: UIViewController {
         return field
     }()
     
-    let loginButton: UIButton = {
+    private let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .red
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.addTarget(self, action: #selector (loginButtonTapped), for: .touchUpInside)
         
         // Prettify
         button.layer.cornerRadius = 12
@@ -76,6 +78,19 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Make navigation bar translucent
+        self.navigationController?.view.backgroundColor = .clear
+        
+        // Nice background
+        let img = UIImage(named: "cornell2")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),                                                              resizingMode: .stretch)
+        scrollView.backgroundColor = UIColor(patternImage: img)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = scrollView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.addSubview(blurEffectView)
+        
         title = "Log in"
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
@@ -88,6 +103,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(netidField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+    
     }
     
     override func viewDidLayoutSubviews() {
@@ -124,8 +140,24 @@ class LoginViewController: UIViewController {
                 loginError()
                 return
         }
-        // Login — need endpoint info to continue here
         
+        // Sign user in based on their netid
+        // Weak self to prevent memory leak -- just a little better
+        FirebaseAuth.Auth.auth().signIn(withEmail: "\(netid)@cornell.edu", password: pw, completion: {[weak self] authResult, error in
+            guard let ss = self else {
+                return 
+            }
+            guard let result = authResult, error == nil else {
+                print("Could not log in user with netid: \(netid)")
+                return
+            }
+            let user = result.user
+            print("Successful log in \(user)")
+            ss.navigationController?.dismiss(animated: true, completion: nil)
+        })
+        
+        // UserDefaults.standard.setValue(true, forKey: "logged_in")
+        // dismiss(animated: true, completion: nil) // fix this later, for now we want to see the next screen
     }
     
     func loginError(){
@@ -169,3 +201,4 @@ extension LoginViewController: UITextFieldDelegate{
         return true
     }
 }
+    

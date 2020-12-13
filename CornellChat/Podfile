@@ -7,11 +7,15 @@ target 'CornellChat' do
 
   # Pods for CornellChat
   pod 'Alamofire'
-  pod 'Google/SignIn'
-  pod 'IGListKit'
-  pod 'Presentr'
-  pod 'SwiftLint'
-  pod 'ViewAnimator'
-  pod 'lottie-ios'
-  pod 'Hero'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+#  pod 'Google/SignIn'
+#  pod 'IGListKit'
+#  pod 'Presentr'
+#  pod 'SwiftLint'
+#  pod 'ViewAnimator'
+#  pod 'lottie-ios'
+#  pod 'Hero'
+#  pod 'Firebase/Analytics'
 end

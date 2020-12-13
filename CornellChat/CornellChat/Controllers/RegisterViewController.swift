@@ -6,24 +6,64 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
-    let profilePicImageView: UIImageView = {
+    private let profilePicImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
-        imageView.tintColor = .systemPink
+        imageView.image = UIImage(systemName: "person.circle")
+        imageView.tintColor = .systemRed
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
     }()
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
         return scrollView
     }()
     
-    let netidField: UITextField = {
+    private let firstNameField: UITextField = {
+        let field = UITextField()
+        field.placeholder = "First Name..."
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        field.returnKeyType = .continue
+        
+        field.layer.cornerRadius = 12
+        field.layer.borderWidth = 1
+        field.layer.borderColor = UIColor.lightGray.cgColor
+        
+        // Bump text left a little
+        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        field.leftViewMode = .always
+        field.backgroundColor = .white
+        return field
+    }()
+    
+    private let lastNameField: UITextField = {
+        let field = UITextField()
+        field.placeholder = "Last Name..."
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        field.returnKeyType = .continue
+        
+        field.layer.cornerRadius = 12
+        field.layer.borderWidth = 1
+        field.layer.borderColor = UIColor.lightGray.cgColor
+        
+        // Bump text left a little
+        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        field.leftViewMode = .always
+        field.backgroundColor = .white
+        return field
+    }()
+    
+    private let netidField: UITextField = {
         let field = UITextField()
         field.placeholder = "NetID..."
         field.autocapitalizationType = .none
@@ -38,11 +78,10 @@ class RegisterViewController: UIViewController {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .white
-        
         return field
     }()
     
-    let passwordField: UITextField = {
+    private let passwordField: UITextField = {
         let field = UITextField()
         field.placeholder = "Password..."
         field.autocapitalizationType = .none
@@ -62,45 +101,7 @@ class RegisterViewController: UIViewController {
         return field
     }()
     
-    let firstNameField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "First Name..."
-        field.autocapitalizationType = .none
-        field.autocorrectionType = .no
-        field.returnKeyType = .continue
-        
-        field.layer.cornerRadius = 12
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        
-        // Bump text left a little
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
-        field.backgroundColor = .white
-        
-        return field
-    }()
-    
-    let lastNameField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "Last Name..."
-        field.autocapitalizationType = .none
-        field.autocorrectionType = .no
-        field.returnKeyType = .continue
-        
-        field.layer.cornerRadius = 12
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        
-        // Bump text left a little
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
-        field.backgroundColor = .white
-        
-        return field
-    }()
-    
-    let registerButton: UIButton = {
+    private let registerButton: UIButton = {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -115,12 +116,25 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Make navigation bar translucent
+        self.navigationController?.view.backgroundColor = .clear
+        
+        // Nice background
+        scrollView.backgroundColor = UIColor(patternImage: UIImage(named: "cornell")!)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = scrollView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.addSubview(blurEffectView)
+        
         title = "Register"
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         netidField.delegate = self
         passwordField.delegate = self
+        firstNameField.delegate = self
+        lastNameField.delegate = self
         
         view.addSubview(scrollView)
         scrollView.addSubview(profilePicImageView)
@@ -131,7 +145,7 @@ class RegisterViewController: UIViewController {
         scrollView.addSubview(registerButton)
         
         profilePicImageView.isUserInteractionEnabled = true
-        scrollView.isUserInteractionEnabled = true
+//        scrollView.isUserInteractionEnabled = true
         
         let gesture = UITapGestureRecognizer(target: self,
                                              action: #selector(didTapChangeProfilePic))
@@ -139,7 +153,7 @@ class RegisterViewController: UIViewController {
     }
     
     @objc private func didTapChangeProfilePic(){
-        print("Change pic later!!!")
+        presentPhotoActionSheet()
     }
     
     override func viewDidLayoutSubviews() {
@@ -151,6 +165,9 @@ class RegisterViewController: UIViewController {
                                      y: 20,
                                      width: size,
                                      height: size)
+        // Make circle cropping 
+        profilePicImageView.layer.cornerRadius = profilePicImageView.width/2.0
+        
         firstNameField.frame = CGRect(x: 30,
                                   y: profilePicImageView.bottom + 10,
                                   width: scrollView.width - 60,
@@ -177,8 +194,6 @@ class RegisterViewController: UIViewController {
         // Remove keyboard
         netidField.resignFirstResponder()
         passwordField.resignFirstResponder()
-        firstNameField.resignFirstResponder()
-        lastNameField.resignFirstResponder()
         
         guard let netid = netidField.text,
               let pw = passwordField.text,
@@ -192,37 +207,98 @@ class RegisterViewController: UIViewController {
                 return
         }
         // Login with backend
-        
+        // Weak self to prevent memory leak -- just a little better
+        FirebaseAuth.Auth.auth().createUser(withEmail: "\(netid)@cornell.edu", password: pw, completion: { [weak self] authResult, error  in
+            guard let ss = self else {
+                return
+            }
+            guard let result = authResult, error == nil else {
+                 print("Error")
+                return
+            }
+            
+            let user = result.user
+            print("Created User: \(user)")
+            ss.navigationController?.dismiss(animated: true, completion: nil)
+        })
     }
     
     func registerError(){
         let alert = UIAlertController(title: "Oh no!",
                                       message: "Please enter all information to create a new account",
                                       preferredStyle: .alert)
-        
         alert.addAction(UIAlertAction(title:"Dismiss",
                                       style: .cancel, handler: nil))
-        
         present(alert, animated: true)
-    }
-    
-    @objc private func didTapRegister(){
-        let vc = RegisterViewController()
-        vc.title = "Sign Up"
-        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 // Field validation here
 extension RegisterViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == netidField {
+        if textField == firstNameField {
+            lastNameField.becomeFirstResponder()
+        }
+        else if textField == lastNameField{
+            netidField.becomeFirstResponder()
+        }
+        else if textField == netidField {
             passwordField.becomeFirstResponder()
         }
         else if textField == passwordField {
             registerButtonTapped()
         }
         return true
+    }
+}
+
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func presentPhotoActionSheet(){
+        let actionSheet = UIAlertController(title: "Profile Picture",
+                                            message: "How would you like to select your picture?",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                            style: .cancel,
+                                            handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Take Photo",
+                                            style: .default,
+                                            handler: {[weak self] _ in
+                                                self?.presentCam()
+                                            }))
+        actionSheet.addAction(UIAlertAction(title: "Choose Photo",
+                                            style: .default,
+                                            handler: {[weak self] _ in
+                                                self?.presentPP()
+                                            }))
+        present(actionSheet, animated: true)
+    }
+    func presentCam(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func presentPP(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        self.profilePicImageView.image = selectedImage
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 
