@@ -4,7 +4,7 @@ import json
 import os
 from db import User, Channel, Message
 from flask import request
-from flask_jwt_extended import create_access_token, JWTManager, get_jwt_identity
+from flask_jwt_extended import create_access_token, JWTManager, get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
 import pusher
 app = Flask(__name__)
@@ -88,25 +88,25 @@ def newChat():
     if not channel:
         chat_channel = "private-chat_{}_{}".format(fr, to)
         new_channel = Channel(name=chat_channel, fr=fr, to=to)
-        db_session.add(new_channel)
-        db_session.commit()
+        db.session.add(new_channel)
+        db.session.commit()
     else:
         chat_channel = channel.name
 
     data = {
         "From": fr,
-        "To": to_user,
+        "To": to,
         "from_channel": fr_channel,
         "to_channel": to_channel,
         "channel_name": chat_channel,
     }
 
-    pusher.trigger(to_user_channel, 'new_chat', data)
+    pusher.trigger(to_channel, 'new_chat', data)
     return success_response(json.dumps(data))
 
-@app.route("/api/pusher/authentication", methods=["POST"])
+@app.route("/api/pusher/authentication/", methods=["POST"])
 @jwt_required
-def pushergauthentication():
+def pusherAuthentication():
     # This will be used to authorize channels. pusher requires this, nth to do with the app itself. will help handle sockets and realtime stuff
     body = json.loads(request.data)
     channel_name = body.get('channel_name')
@@ -114,7 +114,7 @@ def pushergauthentication():
     response = pusher.authenticate(channel=channel_name, socket_id=socket_id)
     return success_response(json.dumps(response))
 
-@app.route("/api/sendMsg", methods=["POST"])
+@app.route("/api/sendMsg/", methods=["POST"])
 @jwt_required
 def sendMsg():
     body = json.loads(request.data)
