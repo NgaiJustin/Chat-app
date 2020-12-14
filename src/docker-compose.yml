@@ -1,0 +1,8 @@
+version: '3'
+
+services: 
+    chat:
+        image: aryanyadav/chat
+        ports:
+            - "5000:5000"
+        

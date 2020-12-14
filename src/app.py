@@ -41,11 +41,18 @@ def signIn():
     body = json.loads(request.data)
     username = body.get("username")
     password = generate_password_hash(body.get("password"))
-    # apparently generating pwd hash is a library method in werkzeug, no need to implement it
-    newUser = User(username = username, password = password)
-    db.session.add(newUser)
-    db.session.commit()
-    return success_response(newUser.serialize())
+    first_name = body.get("first_name")
+    last_name = body.get("last_name")
+
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        newUser = User(username = username, password = password, first_name = first_name, last_name = last_name)
+        db.session.add(newUser)
+        db.session.commit()
+        return success_response(newUser.serialize())
+    else:
+        return failure_response("Account already exists, try loggin in instead.")
+    
 
 
 @app.route("/api/login/", methods=["POST"])
@@ -64,21 +71,17 @@ def logIn():
         return failure_response("Incorrect password")
     
     access_token = create_access_token(identity=username)
-    return success_response(json.dumps({
-            "User id": user.id,
-            "Username": user.username,
-            "Token": access_token
-        }))
+    return success_response({ "user_id": user.id, "username": user.username, "token": access_token})
 
 @app.route("/api/newChat/", methods=["POST"])
 @jwt_required
 def newChat():
     body = json.loads(request.data)
-    fr = body.get("From")
-    to = body.get("To")
+    fr = body.get("from")
+    to = body.get("to")
     # according to pusher docs, the name for the channels have to be of the following format, starting with private-
-    fr_channel = "private-user_{}".format(fr)
-    to_channel = "private-user_{}".format(to)
+    fr_channel = "private-chat_{}".format(fr)
+    to_channel = "private-chat_{}".format(to)
 
     # check if there is a channel that already exists. this looks rather ugly but no idea how to do it otherwise. 
     # we first check if either of fr or to exists in the fr field of the channel table, then check the same for the to field. 
@@ -93,16 +96,10 @@ def newChat():
     else:
         chat_channel = channel.name
 
-    data = {
-        "From": fr,
-        "To": to,
-        "from_channel": fr_channel,
-        "to_channel": to_channel,
-        "channel_name": chat_channel,
-    }
+    data = { "from": fr, "to": to, "from_channel": fr_channel, "to_channel": to_channel, "channel_name": chat_channel }
 
     pusher.trigger(to_channel, 'new_chat', data)
-    return success_response(json.dumps(data))
+    return success_response(data)
 
 @app.route("/api/pusher/authentication/", methods=["POST"])
 @jwt_required
@@ -112,38 +109,37 @@ def pusherAuthentication():
     channel_name = body.get('channel_name')
     socket_id = body.get('socket_id')
     response = pusher.authenticate(channel=channel_name, socket_id=socket_id)
-    return success_response(json.dumps(response))
+    return success_response(response)
 
 @app.route("/api/sendMsg/", methods=["POST"])
 @jwt_required
 def sendMsg():
     body = json.loads(request.data)
-    fr = body.get("From")
-    to = body.get("To")
+    fr = body.get("from")
+    to = body.get("to")
     message = body.get("message")
-    channel_id = body.get("channel_id")
+    channel_name = body.get("channel_name")
 
-    new_message = Message(message=message, channel_id=channel_id, fr=fr, to=to)
+    new_message = Message(message=message, channel_id=channel_name, fr=fr, to=to)
     db.session.add(new_message)
     db.session.commit()
 
     message = new_message.serialize()
 
-    pusher.trigger(channel_id, 'new_message', message)
+    pusher.trigger(channel_name, 'new_message', message)
     return success_response(message)
 
 @app.route("/api/getMsg/<int:channel_id>/", methods=["GET"])
-@jwt_required
 def getMsg(channel_id):
     all_messages = Message.query.filter(Message.channel_id == channel_id).all()
     messages = [m.serialize() for m in all_messages]
     return success_response(messages)
 
 @app.route("/api/getAllUsers/", methods=["GET"])
-@jwt_required
 def getAllUsers():
     users = [u.serialize() for u in User.query.all()]
     return success_response(users)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
