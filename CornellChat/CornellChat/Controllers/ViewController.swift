@@ -8,14 +8,23 @@
 import UIKit
 import FirebaseAuth
 
-class ViewController: UIViewController {
+protocol AddNewConvoDelegate: class {
+    func addConvo(newConvo: Conversation?)
+}
 
+class ViewController: UIViewController{
+    
+    
     // MARK: UI components
     var tableView: UITableView!
-
+    var addButton: UIBarButtonItem!
+    var logOutButton: UIBarButtonItem!
+    
+    
     // MARK: Data variables
     // var user: User
     var conversations = [Conversation]()
+    
 
     // MARK: Constants
     let reuseIdentifier = "ConversationTableViewCellReuse"
@@ -46,6 +55,12 @@ class ViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ConversationTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         view.addSubview(tableView)
+        
+        addButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector (newConvoViewController))
+        navigationItem.rightBarButtonItems = [addButton]
+        
+        logOutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector (logOut))
+        navigationItem.leftBarButtonItems = [logOutButton]
 
         setupConstraints()
         
@@ -82,6 +97,15 @@ class ViewController: UIViewController {
     func getConvo() {
         NetworkManager.getConvo()
     }
+    
+    @objc func logOut(){
+        //I don't know how to do this
+    }
+    
+    @objc func newConvoViewController() {
+        let vc = AddConvoViewController(delegate: self)
+        present(vc, animated: true, completion: nil)
+    }
 
 }
 
@@ -108,8 +132,18 @@ extension ViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let conversation = conversations[indexPath.row]
-        let vc = ConversationViewController( convoName: conversation.recipient.username, messages : conversation.messages)
+        let vc = ConversationViewController( convoName: conversation.name, messages : conversation.messages)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+extension ViewController: AddNewConvoDelegate{
+    
+    func addConvo(newConvo: Conversation?){
+        if newConvo != nil {
+            conversations.append(newConvo!)}
+        tableView.reloadData()
     }
 }
 

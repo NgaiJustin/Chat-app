@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		02251CA1645BDB965F0F2C5A /* Pods_CornellChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CDCE05CE7508F20345A83A /* Pods_CornellChat.framework */; };
+		98256BA62586BC1E001A1532 /* AddConvoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98256BA52586BC1E001A1532 /* AddConvoViewController.swift */; };
+		98256BA92586ED7F001A1532 /* cornellcartoon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 98256BA82586ED7F001A1532 /* cornellcartoon.jpg */; };
 		985AEE9A257F12C400755565 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985AEE99257F12C400755565 /* ConversationViewController.swift */; };
 		985AEE9D257F12DE00755565 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985AEE9C257F12DE00755565 /* MessageTableViewCell.swift */; };
 		98887CAD257DC0DE00C8A32E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98887CAC257DC0DE00C8A32E /* User.swift */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		47CDCE05CE7508F20345A83A /* Pods_CornellChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CornellChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		98256BA52586BC1E001A1532 /* AddConvoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConvoViewController.swift; sourceTree = "<group>"; };
+		98256BA82586ED7F001A1532 /* cornellcartoon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cornellcartoon.jpg; sourceTree = SOURCE_ROOT; };
 		985AEE99257F12C400755565 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		985AEE9C257F12DE00755565 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		98887CAC257DC0DE00C8A32E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				A2EFBFA2257FC5C9007C744F /* Views */,
 				A2EFBFA0257FC594007C744F /* Controllers */,
 				A2201FE4257D23A200B89E59 /* Assets.xcassets */,
+				98256BA82586ED7F001A1532 /* cornellcartoon.jpg */,
 				A2201FE9257D23A200B89E59 /* Info.plist */,
 			);
 			path = CornellChat;
@@ -112,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				A2201FDF257D23A100B89E59 /* ViewController.swift */,
+				98256BA52586BC1E001A1532 /* AddConvoViewController.swift */,
 				A2EFBFA5257FC6D6007C744F /* LoginViewController.swift */,
 				A2265889257FC99700123EBE /* RegisterViewController.swift */,
 				985AEE99257F12C400755565 /* ConversationViewController.swift */,
@@ -205,6 +211,7 @@
 			files = (
 				A2201FE5257D23A200B89E59 /* Assets.xcassets in Resources */,
 				A291851F25855564000CC3B5 /* GoogleService-Info.plist in Resources */,
+				98256BA92586ED7F001A1532 /* cornellcartoon.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98256BA62586BC1E001A1532 /* AddConvoViewController.swift in Sources */,
 				A2EFBFA6257FC6D6007C744F /* LoginViewController.swift in Sources */,
 				A226588A257FC99700123EBE /* RegisterViewController.swift in Sources */,
 				98887CB6257DC94F00C8A32E /* ConversationTableViewCell.swift in Sources */,
