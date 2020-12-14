@@ -23,10 +23,10 @@ class ViewController: UIViewController{
     // var user: User
     var conversations = [Conversation]()
     
-
+    
     // MARK: Constants
     let reuseIdentifier = "ConversationTableViewCellReuse"
-
+    
     // MARK: Fill-in Data
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class ViewController: UIViewController{
         // Do any additional setup after loading the view.
         title = "Current Conversations"
         view.backgroundColor = .white
-
+        
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -48,7 +48,7 @@ class ViewController: UIViewController{
         
         logOutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector (logOut))
         navigationItem.leftBarButtonItems = [logOutButton]
-
+        
         setupConstraints()
     }
     
@@ -65,19 +65,19 @@ class ViewController: UIViewController{
             present(n, animated: false)
         }
     }
-
+    
     func setupConstraints() {
-            NSLayoutConstraint.activate([
-                tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-        }
-
-//    func getConvo() {
-//        NetworkManager.getConvo()
-//    }
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    //    func getConvo() {
+    //        NetworkManager.getConvo()
+    //    }
     
     @objc func logOut(){
         let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
@@ -106,30 +106,30 @@ class ViewController: UIViewController{
         let vc = AddConvoViewController(delegate: self)
         present(vc, animated: true, completion: nil)
     }
-
+    
 }
 
-    // MARK: - Table view data source
-    extension ViewController: UITableViewDataSource {
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return conversations.count
-        }
-
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ConversationTableViewCell
-            cell.configure(for: conversations[indexPath.row])
-            return cell
-        }
-
+// MARK: - Table view data source
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return conversations.count
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ConversationTableViewCell
+        cell.configure(for: conversations[indexPath.row])
+        return cell
+    }
+    
+}
 
-    // MARK: - Table view delegate
+// MARK: - Table view delegate
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let conversation = conversations[indexPath.row]
         let vc = ConversationViewController( convoName: conversation.name, messages : conversation.messages)
