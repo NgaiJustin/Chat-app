@@ -43,11 +43,13 @@ class ConversationViewController: UIViewController {
 //        view.addSubview(scrollView)
         
         messageView.translatesAutoresizingMaskIntoConstraints = false
-        messageView.register(ConversationTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        messageView.register(MessageTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        messageView.delegate = self
+        messageView.dataSource = self
         view.addSubview(messageView)
 //        scrollView.addSubview(messageView)
         
-        let img = UIImage(named: "sendbutton.jpg")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+        let img = UIImage(named: "sendbutton2.jpg")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
             resizingMode: .stretch)
 //        sendButton.backgroundColor = UIColor(patternImage: img)
         sendButton.backgroundColor = .red
@@ -64,10 +66,10 @@ class ConversationViewController: UIViewController {
         writingField.layer.borderWidth = 1
         writingField.layer.borderColor = UIColor.red.cgColor
         
-        let buttonView = UIView(frame: CGRect(x: -55, y: -15, width: 30, height: 30))
+        let buttonView = UIView(frame: CGRect(x: 55, y: 15, width: 30, height: 30))
         buttonView.addSubview(sendButton)
         writingField.rightView = buttonView
-        writingField.rightViewMode = .always
+//        writingField.rightViewMode = .always
         writingField.backgroundColor = .white
         view.addSubview(writingField)
 //        scrollView.addSubview(writingField)
@@ -99,7 +101,7 @@ class ConversationViewController: UIViewController {
     
     func setupConstraintsConversation() {
         NSLayoutConstraint.activate([
-            writingField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            writingField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -60),
             writingField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             writingField.heightAnchor.constraint(equalToConstant: 50),
             writingField.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -122,7 +124,7 @@ class ConversationViewController: UIViewController {
 
 }
     
-extension ConversationViewController: UITableViewDataSource {
+extension ConversationViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
@@ -135,21 +137,23 @@ extension ConversationViewController: UITableViewDataSource {
     }
     
     
-        func messageView(_ messageView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return messages.count
-        }
-
-        func messageView(_ messageView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = messageView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
-            let message = messages[indexPath.row]
-            cell.configure(for: message)
-            return cell
-        }
-        
-        func messageView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 60
-        }
-    }
+    
+//
+//        func messageView(_ messageView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//            return messages.count
+//        }
+//
+//        func messageView(_ messageView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//            let cell = messageView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
+//            let message = messages[indexPath.row]
+//            cell.configure(for: message)
+//            return cell
+//        }
+//
+//        func messageView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//            return 60
+//        }
+   }
 
 
 

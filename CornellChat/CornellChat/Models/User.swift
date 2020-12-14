@@ -19,9 +19,10 @@ enum Direction {
 }
 
 struct Message {
-    var id : String // message id - not sure if it is a string
+    var id : String? // message id - not sure if it is a string
     var contents : String
-    var direction : Direction
+    var to : User
+    var from : User
     var time : String
 }
 
@@ -33,6 +34,7 @@ struct Conversation {
 }
 
 struct User {
+    static var current : User?
     var id : String // user id - not sure if this is a string
     var username : String // not sure if this is a string
     var password : String

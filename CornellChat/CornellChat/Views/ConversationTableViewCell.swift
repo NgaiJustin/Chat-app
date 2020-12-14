@@ -45,7 +45,7 @@ class ConversationTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            otherPersonNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            otherPersonNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             otherPersonNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             otherPersonNameLabel.heightAnchor.constraint(equalToConstant: nameLabelHeight)
             ])
@@ -58,7 +58,7 @@ class ConversationTableViewCell: UITableViewCell {
             ])
 
         NSLayoutConstraint.activate([
-            timeStampLabel.leadingAnchor.constraint(equalTo: otherPersonNameLabel.leadingAnchor),
+            timeStampLabel.leadingAnchor.constraint(equalTo: otherPersonNameLabel.leadingAnchor, constant: padding),
             timeStampLabel.topAnchor.constraint(equalTo: otherPersonNameLabel.bottomAnchor, constant: padding),
             timeStampLabel.heightAnchor.constraint(equalToConstant: previewLabelHeight)
             ])

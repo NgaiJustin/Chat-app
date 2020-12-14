@@ -48,6 +48,7 @@ class ViewController: UIViewController{
         // Do any additional setup after loading the view.
         title = "Current Conversations"
         view.backgroundColor = .white
+        navigationController?.navigationBar.barTintColor = UIColor.red
 
         tableView = UITableView()
         tableView.delegate = self
@@ -56,7 +57,7 @@ class ViewController: UIViewController{
         tableView.register(ConversationTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         view.addSubview(tableView)
         
-        addButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector (newConvoViewController))
+        addButton = UIBarButtonItem(title: "New", style: .plain, target: self, action: #selector (newConvoViewController))
         navigationItem.rightBarButtonItems = [addButton]
         
         logOutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector (logOut))
@@ -94,9 +95,9 @@ class ViewController: UIViewController{
             ])
         }
 
-    func getConvo() {
-        NetworkManager.getConvo()
-    }
+//    func getConvo() {
+//        NetworkManager.getConvo()
+//    }
     
     @objc func logOut(){
         //I don't know how to do this

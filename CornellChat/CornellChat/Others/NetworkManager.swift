@@ -19,15 +19,21 @@ class NetworkManager {
 
     static let endpoint = "addThisLater"
 
-    static func getConvo() {
-        AF.request(endpoint, method: HTTPMethod.get).validate().responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                print(data) // for debugging
-            case .failure(let error):
-                print(error) // for debugging again
-            }
-        }
-    }
+//    static func getMsg(completion: @escaping (Message) -> Void) {
+//        AF.request(endpoint, method: HTTPMethod.get).validate().responseJSON { response in
+//            switch response.result {
+//            case .success(let data):
+//                let jsonDecoder = JSONDecoder()
+//                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+//                if let message = try?
+//                    jsonDecoder(Message.self, from: data){
+//                    completion(message)
+//                    
+//                }
+//            case .failure(let error):
+//                print(error) // for debugging again
+//            }
+//        }
+//    }
 
 }
