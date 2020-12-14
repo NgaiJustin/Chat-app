@@ -16,6 +16,11 @@ class ConversationViewController: UIViewController {
     var sendButton: UIButton!
 //    var scrollView: UIScrollView
     
+//    let dummyUser = User(id: "Test", username: "dummy", password: "bigDumb", imageName: "logo", conversations: [Conversation])
+//    let dummyConvo = Conversation(id: "dummyConvo", name: "dummyConvo", messages: <#T##[Message]#>, recipient: <#T##Recipient#>)
+//    let dummyMsg = Message(id: "id", contents: "hello there", to: dummyUser, from: dummyUser, time: "now")
+//    let dummyRecipient = Recipient(imageName: "logo", id: "dummyRecp", username: "dummy")
+    
     let reuseIdentifier = "messageCellReuse"
     
     init(convoName: String, messages: [Message]){
@@ -117,7 +122,12 @@ class ConversationViewController: UIViewController {
 
     @objc private func sendButtonTapped(){
         if writingField.text != "" {
-            messages.append(Message(id: "jfkdjdk", contents: writingField.text!, direction: .outgoing, time: "now"))
+//            messages.append(Message(
+//                                id: "jfkdjdk",
+//                                contents: writingField.text!,
+//                                to: User,
+//                                from: User,
+//                                time: "now"))
             return}
         else {return}
     }

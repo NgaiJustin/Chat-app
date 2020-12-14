@@ -14,12 +14,10 @@ protocol AddNewConvoDelegate: class {
 
 class ViewController: UIViewController{
     
-    
     // MARK: UI components
     var tableView: UITableView!
     var addButton: UIBarButtonItem!
     var logOutButton: UIBarButtonItem!
-    
     
     // MARK: Data variables
     // var user: User
@@ -30,25 +28,13 @@ class ViewController: UIViewController{
     let reuseIdentifier = "ConversationTableViewCellReuse"
 
     // MARK: Fill-in Data
-    // messages
-    let message1 = Message(id: "1", contents: "Hello", direction: .incoming, time: "1:25 pm")
-    let message2 = Message(id: "2", contents: "Hi", direction: .outgoing, time: "1:26 pm")
-    let message3 = Message(id: "3", contents: "How are you?", direction: .incoming, time: "2:01 pm")
-    let message4 = Message(id: "4", contents: "I'm good, how are you?", direction: .outgoing, time: "2:12 pm")
-    var messages = [Message]()
-    
-    //recipients
-    let sampleUser = Recipient(imageName: "none", id: "1234", username: "sampleuser123")
-    
-    //conversations
-    //    let sampleConversation = Conversation(id: "conversation1", name: "John Smith", messages: [message1, message2, message3, message4], recipient: sampleUser)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         title = "Current Conversations"
         view.backgroundColor = .white
-        navigationController?.navigationBar.barTintColor = UIColor.red
 
         tableView = UITableView()
         tableView.delegate = self
@@ -64,12 +50,6 @@ class ViewController: UIViewController{
         navigationItem.leftBarButtonItems = [logOutButton]
 
         setupConstraints()
-        
-        // Hard coding stuff for now
-        let sampleConversation = Conversation(id: "conversation1", name: "John Smith", messages: [message1, message2, message3, message4], recipient: sampleUser)
-        conversations = [sampleConversation, sampleConversation, sampleConversation]
-    
-        //        getConvo() won't work until we have the endpoint
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,7 +80,26 @@ class ViewController: UIViewController{
 //    }
     
     @objc func logOut(){
-        //I don't know how to do this
+        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: {
+            [weak self] _ in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            do {
+                try FirebaseAuth.Auth.auth().signOut()
+                let vc = LoginViewController()
+                let n = UINavigationController(rootViewController: vc)
+                n.modalPresentationStyle = .fullScreen
+                strongSelf.present(n, animated: true)
+            } catch {
+                print ("Umm....")
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(actionSheet, animated: true)
     }
     
     @objc func newConvoViewController() {

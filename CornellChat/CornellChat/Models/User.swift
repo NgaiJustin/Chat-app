@@ -33,12 +33,12 @@ struct Conversation {
     var recipient : Recipient
 }
 
-struct User {
-    static var current : User?
-    var id : String // user id - not sure if this is a string
+struct User: Codable {
+    var userId : String // user id - not sure if this is a string
     var username : String // not sure if this is a string
-    var password : String
-    var imageName : String
-    var conversations : [Conversation]
+    var firstName : String
+    var lastName : String
+//    var imageName : String
+//    for image we can just do userId.jpg
 }
 

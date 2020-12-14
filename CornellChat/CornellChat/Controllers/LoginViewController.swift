@@ -7,8 +7,10 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -141,11 +143,16 @@ class LoginViewController: UIViewController {
                 return
         }
         
+        spinner.show(in: view)
+        
         // Sign user in based on their netid
         // Weak self to prevent memory leak -- just a little better
         FirebaseAuth.Auth.auth().signIn(withEmail: "\(netid)@cornell.edu", password: pw, completion: {[weak self] authResult, error in
             guard let ss = self else {
                 return 
+            }
+            DispatchQueue.main.async {
+                ss.spinner.dismiss()
             }
             guard let result = authResult, error == nil else {
                 print("Could not log in user with netid: \(netid)")
@@ -153,6 +160,10 @@ class LoginViewController: UIViewController {
             }
             let user = result.user
             print("Successful log in \(user)")
+            
+            // SET TOKEN HERE
+            UserDefaults.standard.set("token", forKey: "something")
+            
             ss.navigationController?.dismiss(animated: true, completion: nil)
         })
         

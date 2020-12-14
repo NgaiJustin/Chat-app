@@ -7,8 +7,11 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let profilePicImageView: UIImageView = {
         let imageView = UIImageView()
@@ -206,12 +209,19 @@ class RegisterViewController: UIViewController {
                 registerError()
                 return
         }
+        spinner.show(in: view)
+        
         // Login with backend
         // Weak self to prevent memory leak -- just a little better
         FirebaseAuth.Auth.auth().createUser(withEmail: "\(netid)@cornell.edu", password: pw, completion: { [weak self] authResult, error  in
             guard let ss = self else {
                 return
             }
+            
+            DispatchQueue.main.async {
+                ss.spinner.dismiss()
+            }
+            
             guard let result = authResult, error == nil else {
                  print("Error")
                 return

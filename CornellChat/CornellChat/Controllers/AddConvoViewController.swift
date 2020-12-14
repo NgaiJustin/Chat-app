@@ -57,6 +57,7 @@ class AddConvoViewController: UIViewController {
         textField1.layer.cornerRadius = 12
         textField1.layer.borderWidth = 1
         textField1.layer.borderColor = UIColor.lightGray.cgColor
+        textField1.autocapitalizationType = .none
         view.addSubview(textField1)
         
         button1 = UIButton()

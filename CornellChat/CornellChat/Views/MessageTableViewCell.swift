@@ -77,7 +77,7 @@ class MessageTableViewCell: UITableViewCell {
     func configure (for message: Message){
         contentsLabel.text = message.contents
         timeStampLabel.text = message.time
-        direction = message.direction
+//        direction = message.direction
     }
     
     required init?(coder: NSCoder) {

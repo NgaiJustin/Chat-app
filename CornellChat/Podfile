@@ -10,6 +10,7 @@ target 'CornellChat' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'JGProgressHUD'
 #  pod 'Google/SignIn'
 #  pod 'IGListKit'
 #  pod 'Presentr'
