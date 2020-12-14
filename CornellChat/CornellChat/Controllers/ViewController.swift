@@ -20,8 +20,9 @@ class ViewController: UIViewController{
     var logOutButton: UIBarButtonItem!
     
     // MARK: Data variables
-    // var user: User
     var conversations = [Conversation]()
+    var dummyUser: User!
+    
     
     
     // MARK: Constants
@@ -50,6 +51,9 @@ class ViewController: UIViewController{
         navigationItem.leftBarButtonItems = [logOutButton]
         
         setupConstraints()
+        
+        register(username: "2", pw: "somepassword", first: "this", last: "that")
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,9 +79,11 @@ class ViewController: UIViewController{
         ])
     }
     
-    //    func getConvo() {
-    //        NetworkManager.getConvo()
-    //    }
+    func register(username: String, pw: String, first: String, last: String) {
+        return NetworkManager.signin(username: username, pw: pw, first: first, last: last, completion: { user in
+            self.dummyUser = user
+        })
+    }
     
     @objc func logOut(){
         let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)

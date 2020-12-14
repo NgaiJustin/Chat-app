@@ -46,11 +46,34 @@ class NetworkManager {
             "first_name": first,
             "last_name": last
         ]
-        AF.request(endpoint,
-                   method: .post,
-                   parameters: parameters,
-                   encoding: URLEncoding.queryString)
-            .validate().responseData { response in switch response.result {
+        AF.request(endpoint, method: .post, parameters: parameters,
+                   encoding: URLEncoding.queryString).validate().responseData { response in
+                switch response.result {
+            case .success(let data):
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                if let user = try? jsonDecoder.decode(User.self, from: data){
+                    print("IT WORKED")
+                    print(user)
+                    completion(user)
+                }
+            case .failure(let error):
+                print("HELLO")
+                print(response)
+                print(error) // for debugging again
+            }
+        }
+    }
+    
+    static func login(username: String, password: String, completion: @escaping (User) -> Void)
+    {
+        let parameters: [String: Any] = [
+            "username": username,
+            "password": password,
+        ]
+        AF.request(endpoint, method: .post, parameters: parameters,
+                   encoding: URLEncoding.queryString).validate().responseData { response in
+                switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -61,6 +84,7 @@ class NetworkManager {
                 print(error) // for debugging again
             }
         }
+        
     }
 
 }

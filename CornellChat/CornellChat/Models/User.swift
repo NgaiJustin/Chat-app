@@ -38,7 +38,6 @@ struct User: Codable {
     var username : String // not sure if this is a string
     var firstName : String
     var lastName : String
-//    var imageName : String
-//    for image we can just do userId.jpg
 }
+
 
