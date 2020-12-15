@@ -15,25 +15,25 @@ class ConversationTableViewCell: UITableViewCell {
     var timeStampLabel: UILabel!
     
     let padding: CGFloat = 8
-    let nameLabelHeight: CGFloat = 16
-    let previewLabelHeight: CGFloat = 14
+    let nameLabelHeight: CGFloat = 20
+    let previewLabelHeight: CGFloat = 15
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         otherPersonNameLabel = UILabel()
         otherPersonNameLabel.textColor = .black
-        otherPersonNameLabel.font = .systemFont(ofSize: 14)
+        otherPersonNameLabel.font = .systemFont(ofSize: 20, weight: .bold)
         otherPersonNameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         convoPreviewLabel = UILabel()
         convoPreviewLabel.textColor = .gray
-        convoPreviewLabel.font = .systemFont(ofSize: 12)
+        convoPreviewLabel.font = .systemFont(ofSize: 15)
         convoPreviewLabel.translatesAutoresizingMaskIntoConstraints = false
 
         timeStampLabel = UILabel()
         timeStampLabel.textColor = .gray
-        timeStampLabel.font = .systemFont(ofSize: 14)
+        timeStampLabel.font = .systemFont(ofSize: 15)
         timeStampLabel.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(otherPersonNameLabel)

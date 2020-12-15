@@ -140,7 +140,7 @@ class AddConvoViewController: UIViewController {
     @objc func addConvoAndDismissViewController(){
         if textField1.text != "" {
             //check if it is a valid netID and add the real info
-            delegate?.addConvo(newConvo: Conversation(id: "12345", name: "Abby Levin", messages: [], recipient: Recipient(imageName: "none", id: "jfkdjfkd", username: textField1.text!)))
+            delegate?.addConvo(newConvo: Conversation(id: 5, name: textField1.text!, messages: [], recipient: User(userId: 6, username: textField1.text!, firstName: nil, lastName: nil, token: nil)))
             navigationController?.popViewController(animated: true)
             dismiss(animated: true, completion: nil)
         }

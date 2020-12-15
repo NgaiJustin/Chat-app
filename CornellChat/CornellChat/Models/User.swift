@@ -23,7 +23,7 @@ enum Direction {
 }
 
 struct Message: Codable {
-    var id : String? // message id - not sure if it is a string
+    var id : Int? // message id - not sure if it is a string
     var contents : String
     var to : User
     var from : User
@@ -31,10 +31,10 @@ struct Message: Codable {
 }
 
 struct Conversation {
-    var id : String  //channel id - not sure if it is a string
+    var id : Int  //channel id - not sure if it is a string
     var name : String // channel name - not sure if it is a string (could also just use recipient.username)
     var messages : [Message]
-    var recipient : Recipient
+    var recipient : User
 }
 
 struct UserResponse: Codable {

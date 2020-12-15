@@ -11,20 +11,17 @@ class ConversationViewController: UIViewController {
     
     var convoName: String!
     var messages: [Message]
+    var recipient: User
     var messageView: UITableView!
     var writingField: UITextField!
     var sendButton: UIButton!
-//    var scrollView: UIScrollView
     
-//    let dummyUser = User(id: 123, username: "dummy", password: "bigDumb", imageName: "logo")
-//    let dummyConvo = Conversation(id: "dummyConvo", name: "dummyConvo", messages: <#T##[Message]#>, recipient: <#T##Recipient#>)
-//    let dummyMsg = Message(id: "id", contents: "hello there", to: dummyUser, from: dummyUser, time: "now")
-//    let dummyRecipient = Recipient(imageName: "logo", id: "dummyRecp", username: "dummy")
     
     let reuseIdentifier = "messageCellReuse"
     
-    init(convoName: String, messages: [Message]){
+    init(convoName: String, messages: [Message], recipient: User){
         self.convoName = convoName
+        self.recipient = recipient
         self.messages = messages
         self.messageView = UITableView()
         self.writingField = UITextField()
@@ -126,17 +123,24 @@ class ConversationViewController: UIViewController {
             sendButton.bottomAnchor.constraint(equalTo: writingField.bottomAnchor, constant: -5)
             ])
         }
-
+    
     @objc private func sendButtonTapped(){
         if writingField.text != "" {
-//            messages.append(Message(
-//                                id: "jfkdjdk",
-//                                contents: writingField.text!,
-//                                to: User,
-//                                from: User,
-//                                time: "now"))
-            return}
-        else {return}
+            let date = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            let minutes = calendar.component(.minute, from: date)
+            let time1 = String(hour) + ":" + String(minutes)
+            messages.append(Message(
+                                id: 5,
+                                contents: writingField.text!,
+                                to: self.recipient,
+                                from: User.current!,
+                                time: time1))
+            writingField.text = ""
+            messageView.reloadData()
+            }
+
     }
 
 }
@@ -151,6 +155,10 @@ extension ConversationViewController: UITableViewDataSource, UITableViewDelegate
         let message = messages[indexPath.row]
         cell.configure(for: message)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65
     }
     
     

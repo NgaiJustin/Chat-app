@@ -11,8 +11,8 @@ class MessageTableViewCell: UITableViewCell {
 
     var contentsLabel: UILabel!
     var timeStampLabel: UILabel!
-    var direction: Direction?
     
+    var recipient: User?
     let padding: CGFloat = 8
     let contentsLabelHeight: CGFloat = 16
     let timeStampLabelHeight: CGFloat = 14
@@ -20,7 +20,6 @@ class MessageTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 //        contentView.backgroundColor = .black
-        direction = nil
         
         contentsLabel = UILabel()
         contentsLabel.numberOfLines = 0
@@ -36,15 +35,20 @@ class MessageTableViewCell: UITableViewCell {
         contentView.addSubview(contentsLabel)
         contentView.addSubview(timeStampLabel)
         
-        if case .incoming = direction {
+        if recipient?.userId == User.current?.userId{
+            contentsLabel.textAlignment = .left
+            timeStampLabel.textAlignment = .left
             setupConstraintsIncoming()
         }
-        else {setupConstraintsOutgoing()}
+        else {
+            contentsLabel.textAlignment = .right
+            timeStampLabel.textAlignment = .right
+            setupConstraintsOutgoing()}
     }
     
     func setupConstraintsIncoming() {
         NSLayoutConstraint.activate([
-            contentsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             contentsLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             contentsLabel.heightAnchor.constraint(equalToConstant: contentsLabelHeight),
             contentsLabel.widthAnchor.constraint(equalToConstant: (contentView.width - 20))
@@ -60,10 +64,10 @@ class MessageTableViewCell: UITableViewCell {
     
     func setupConstraintsOutgoing() {
         NSLayoutConstraint.activate([
-            contentsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            contentsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             contentsLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             contentsLabel.heightAnchor.constraint(equalToConstant: contentsLabelHeight),
-            contentsLabel.widthAnchor.constraint(equalToConstant: (contentView.width - 200))
+            contentsLabel.widthAnchor.constraint(equalToConstant: (contentView.width - 20))
             ])
 
         NSLayoutConstraint.activate([
@@ -77,7 +81,7 @@ class MessageTableViewCell: UITableViewCell {
     func configure (for message: Message){
         contentsLabel.text = message.contents
         timeStampLabel.text = message.time
-//        direction = message.direction
+        recipient = message.to
     }
     
     required init?(coder: NSCoder) {
