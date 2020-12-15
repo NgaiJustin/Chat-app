@@ -18,22 +18,6 @@ enum ExampleDataResponse<T: Any> {
 class NetworkManager {
 
     static let endpoint = "https://cornell-chat-app.herokuapp.com/"
-
-//    static func getMsg(completion: @escaping (Message) -> Void) {
-//        AF.request(endpoint, method: HTTPMethod.get).validate().responseJSON { response in
-//            switch response.result {
-//            case .success(let data):
-//                let jsonDecoder = JSONDecoder()
-//                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-//                if let message = try?
-//                    jsonDecoder(Message.self, from: data){
-//                    completion(message)
-//                }
-//            case .failure(let error):
-//                print(error) // for debugging again
-//            }
-//        }
-//    }
     
     static func signin(username: String,
                        pw: String,
@@ -46,16 +30,17 @@ class NetworkManager {
             "first_name": first,
             "last_name": last
         ]
-        AF.request(endpoint, method: .post, parameters: parameters,
-                   encoding: URLEncoding.queryString).validate().responseData { response in
+        let signinEndpoint = "\(endpoint)api/signin/"
+        AF.request(signinEndpoint, method: .post, parameters: parameters,
+                   encoding: JSONEncoding.default).validate().responseData { response in
                 switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let user = try? jsonDecoder.decode(User.self, from: data){
+                if let userData = try? jsonDecoder.decode(UserResponse.self, from: data){
                     print("IT WORKED")
-                    print(user)
-                    completion(user)
+                    print(userData)
+                    completion(userData.data)
                 }
             case .failure(let error):
                 print("HELLO")
@@ -71,20 +56,120 @@ class NetworkManager {
             "username": username,
             "password": password,
         ]
-        AF.request(endpoint, method: .post, parameters: parameters,
-                   encoding: URLEncoding.queryString).validate().responseData { response in
+        let loginEndpoint = "\(endpoint)api/login/"
+        AF.request(loginEndpoint, method: .post, parameters: parameters,
+                   encoding: JSONEncoding.default).validate().responseData { response in
                 switch response.result {
             case .success(let data):
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                if let user = try? jsonDecoder.decode(User.self, from: data){
-                    completion(user)
+                if let userLogin = try? jsonDecoder.decode(UserResponse.self, from: data){
+                    completion(userLogin.data)
                 }
             case .failure(let error):
                 print(error) // for debugging again
             }
         }
         
-    }
+        func newChat(from: Int, to: Int, completion: @escaping (Chat) -> Void) //how do you add the header???
+        {
+            let parameters: [String: Any] = [
+                "from": from,
+                "to": to,
+            ]
+            let header: HTTPHeaders = [
+                "Authorization": "Bearer \(User.current?.token)"
+            ]
+            let newChatEndpoint = "\(endpoint)api/newChat/"
+            AF.request(newChatEndpoint, method: .post, parameters: parameters,
+                       encoding: JSONEncoding.default, headers: header).validate().responseData { response in
+                    switch response.result {
+                case .success(let data):
+                    let jsonDecoder = JSONDecoder()
+                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                    if let chat = try? jsonDecoder.decode(Chat.self, from: data){
+                        completion(chat)
+                    }
+                case .failure(let error):
+                    print(error) // for debugging again
+                }
+            }
+        }
+            
+        func sendMsg(from: Int, to: Int, message: String, channelName: String, completion: @escaping (MessageBackend) -> Void) //how do you add the header???
+            {
+                let parameters: [String: Any] = [
+                    "from": from,
+                    "to": to,
+                    "message": message,
+                    "channel_name": channelName,
+                ]
+            let header: HTTPHeaders = [
+                "Authorization": "Bearer \(User.current?.token)"
+            ]
+                AF.request(endpoint, method: .post, parameters: parameters,
+                           encoding: JSONEncoding.default, headers: header).validate().responseData { response in
+                        switch response.result {
+                    case .success(let data):
+                        let jsonDecoder = JSONDecoder()
+                        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                        if let message = try? jsonDecoder.decode(MessageBackend.self, from: data){
+                            completion(message)
+                        }
+                    case .failure(let error):
+                        print(error) // for debugging again
+                    }
+                }
+            }
 
+        func getMsg(messageId: Int, messageContents: String, from: Int, to: Int, channelName: String, completion: @escaping (MessageBackend) -> Void) //how do you add the header???
+            {
+                let parameters: [String: Any] = [
+                    "message_id" : messageId,
+                    "message_contents": messageContents,
+                    "from": from,
+                    "to": to,
+                    "channel_name": channelName,
+                ]
+            let header: HTTPHeaders = [
+                "Authorization": "Bearer \(User.current?.token)"
+            ]
+                AF.request(endpoint, method: .post, parameters: parameters,
+                           encoding: JSONEncoding.default, headers: header).validate().responseData { response in
+                        switch response.result {
+                    case .success(let data):
+                        let jsonDecoder = JSONDecoder()
+                        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                        if let message = try? jsonDecoder.decode(MessageBackend.self, from: data){
+                            completion(message)
+                        }
+                    case .failure(let error):
+                        print(error) // for debugging again
+                    }
+                }
+            }
+
+        func getAllUsers(completion: @escaping (UserDataResponse) -> Void) //how do you add the header???
+            {
+            let header: HTTPHeaders = [
+                "Authorization": "Bearer \(User.current?.token)"
+            ]
+                AF.request(endpoint, method: .post, parameters: parameters,
+                           encoding: JSONEncoding.default, headers: header).validate().responseData { response in
+                        switch response.result {
+                    case .success(let data):
+                        let jsonDecoder = JSONDecoder()
+                        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                        if let users = try? jsonDecoder.decode(UserDataResponse.self, from: data){
+                            completion(users)
+                        }
+                    case .failure(let error):
+                        print(error) // for debugging again
+                    }
+                }
+            }
+}
+    
+    
+    
 }

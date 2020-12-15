@@ -210,27 +210,31 @@ class RegisterViewController: UIViewController {
                 return
         }
         spinner.show(in: view)
-        
+        NetworkManager.signin(username: netid, pw: pw, first: first, last: last) { (user) in
+//            User.current = user
+            self.spinner.dismiss()
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
         // Login with backend
         // Weak self to prevent memory leak -- just a little better
-        FirebaseAuth.Auth.auth().createUser(withEmail: "\(netid)@cornell.edu", password: pw, completion: { [weak self] authResult, error  in
-            guard let ss = self else {
-                return
-            }
+//        FirebaseAuth.Auth.auth().createUser(withEmail: "\(netid)@cornell.edu", password: pw, completion: { [weak self] authResult, error  in
+//            guard let ss = self else {
+//                return
+//            }
             
-            DispatchQueue.main.async {
-                ss.spinner.dismiss()
-            }
-            
-            guard let result = authResult, error == nil else {
-                 print("Error")
-                return
-            }
-            
-            let user = result.user
-            print("Created User: \(user)")
-            ss.navigationController?.dismiss(animated: true, completion: nil)
-        })
+//            DispatchQueue.main.async {
+//                ss.spinner.dismiss()
+//            }
+//
+//            guard let result = authResult, error == nil else {
+//                 print("Error")
+//                return
+//            }
+//
+//            let user = result.user
+//            print("Created User: \(user)")
+//            ss.navigationController?.dismiss(animated: true, completion: nil)
+//        })
     }
     
     func registerError(){

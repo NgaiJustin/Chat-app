@@ -16,7 +16,7 @@ class ConversationViewController: UIViewController {
     var sendButton: UIButton!
 //    var scrollView: UIScrollView
     
-//    let dummyUser = User(id: "Test", username: "dummy", password: "bigDumb", imageName: "logo", conversations: [Conversation])
+//    let dummyUser = User(id: 123, username: "dummy", password: "bigDumb", imageName: "logo")
 //    let dummyConvo = Conversation(id: "dummyConvo", name: "dummyConvo", messages: <#T##[Message]#>, recipient: <#T##Recipient#>)
 //    let dummyMsg = Message(id: "id", contents: "hello there", to: dummyUser, from: dummyUser, time: "now")
 //    let dummyRecipient = Recipient(imageName: "logo", id: "dummyRecp", username: "dummy")
@@ -54,14 +54,15 @@ class ConversationViewController: UIViewController {
         view.addSubview(messageView)
 //        scrollView.addSubview(messageView)
         
-        let img = UIImage(named: "sendbutton2.jpg")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-            resizingMode: .stretch)
-//        sendButton.backgroundColor = UIColor(patternImage: img)
-        sendButton.backgroundColor = .red
+//        let img = UIImage(named: "sendbutton2.jpg")!.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+//            resizingMode: .stretch)
+        sendButton.setImage(UIImage(named: "sendbutton2.jpg"), for: UIControl.State.normal)
+//        sendButton.backgroundColor = .red
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.addTarget(self, action: #selector (sendButtonTapped), for: .touchUpInside)
         sendButton.layer.cornerRadius = 15
         sendButton.layer.masksToBounds = true
+        view.addSubview(sendButton)
         
         writingField.translatesAutoresizingMaskIntoConstraints = false
         writingField.placeholder = "message..."
@@ -70,13 +71,12 @@ class ConversationViewController: UIViewController {
         writingField.layer.cornerRadius = 12
         writingField.layer.borderWidth = 1
         writingField.layer.borderColor = UIColor.red.cgColor
-        
-        let buttonView = UIView(frame: CGRect(x: 55, y: 15, width: 30, height: 30))
-        buttonView.addSubview(sendButton)
-        writingField.rightView = buttonView
-//        writingField.rightViewMode = .always
-        writingField.backgroundColor = .white
         view.addSubview(writingField)
+        
+//        let buttonView = UIView(frame: CGRect(x: 55, y: 15, width: 30, height: 30))
+//        buttonView.addSubview(sendButton)
+//        writingField.rightView = buttonView
+//        writingField.rightViewMode = .always
 //        scrollView.addSubview(writingField)
         
         
@@ -106,7 +106,7 @@ class ConversationViewController: UIViewController {
     
     func setupConstraintsConversation() {
         NSLayoutConstraint.activate([
-            writingField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -60),
+            writingField.widthAnchor.constraint(equalToConstant: view.width - 70),
             writingField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             writingField.heightAnchor.constraint(equalToConstant: 50),
             writingField.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -117,6 +117,13 @@ class ConversationViewController: UIViewController {
             messageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             messageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             messageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
+            ])
+        
+        NSLayoutConstraint.activate([
+            sendButton.topAnchor.constraint(equalTo: writingField.topAnchor, constant: 5),
+            sendButton.widthAnchor.constraint(equalToConstant: 40),
+            sendButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            sendButton.bottomAnchor.constraint(equalTo: writingField.bottomAnchor, constant: -5)
             ])
         }
 

@@ -57,18 +57,18 @@ class ViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        validateAuth()
+//        validateAuth()
     }
     
     // Checks if user exists in Database
-    private func validateAuth(){
-        if FirebaseAuth.Auth.auth().currentUser == nil {
-            let vc = LoginViewController()
-            let n = UINavigationController(rootViewController: vc)
-            n.modalPresentationStyle = .fullScreen
-            present(n, animated: false)
-        }
-    }
+//    private func validateAuth(){
+//        if FirebaseAuth.Auth.auth().currentUser == nil {
+//            let vc = LoginViewController()
+//            let n = UINavigationController(rootViewController: vc)
+//            n.modalPresentationStyle = .fullScreen
+//            present(n, animated: false)
+//        }
+//    }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([

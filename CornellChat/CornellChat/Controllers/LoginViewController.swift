@@ -81,6 +81,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if User.current != nil {
+            let newvc = ViewController()
+            self.navigationController?.pushViewController(newvc, animated: true)
+        }
+        
         // Make navigation bar translucent
         self.navigationController?.view.backgroundColor = .clear
         
@@ -144,28 +149,34 @@ class LoginViewController: UIViewController {
         }
         
         spinner.show(in: view)
-        
+        NetworkManager.login(username: netid, password: pw) { (user) in
+            self.spinner.dismiss()
+            User.current = user
+            let newvc = ViewController()
+            self.navigationController?.pushViewController(newvc, animated: true)
+            
+        }
         // Sign user in based on their netid
         // Weak self to prevent memory leak -- just a little better
-        FirebaseAuth.Auth.auth().signIn(withEmail: "\(netid)@cornell.edu", password: pw, completion: {[weak self] authResult, error in
-            guard let ss = self else {
-                return 
-            }
-            DispatchQueue.main.async {
-                ss.spinner.dismiss()
-            }
-            guard let result = authResult, error == nil else {
-                print("Could not log in user with netid: \(netid)")
-                return
-            }
-            let user = result.user
-            print("Successful log in \(user)")
-            
-            // SET TOKEN HERE
-            UserDefaults.standard.set("token", forKey: "something")
-            
-            ss.navigationController?.dismiss(animated: true, completion: nil)
-        })
+//        FirebaseAuth.Auth.auth().signIn(withEmail: "\(netid)@cornell.edu", password: pw, completion: {[weak self] authResult, error in
+//            guard let ss = self else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                ss.spinner.dismiss()
+//            }
+//            guard let result = authResult, error == nil else {
+//                print("Could not log in user with netid: \(netid)")
+//                return
+//            }
+//            let user = result.user
+//            print("Successful log in \(user)")
+//
+//            // SET TOKEN HERE
+//            UserDefaults.standard.set("token", forKey: "something")
+//
+//            ss.navigationController?.dismiss(animated: true, completion: nil)
+//        })
         
         // UserDefaults.standard.setValue(true, forKey: "logged_in")
         // dismiss(animated: true, completion: nil) // fix this later, for now we want to see the next screen
