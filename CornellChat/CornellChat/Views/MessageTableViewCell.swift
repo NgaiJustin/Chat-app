@@ -82,6 +82,15 @@ class MessageTableViewCell: UITableViewCell {
         contentsLabel.text = message.contents
         timeStampLabel.text = message.time
         recipient = message.to
+        if recipient?.userId == User.current?.userId{
+            contentsLabel.textAlignment = .left
+            timeStampLabel.textAlignment = .left
+            setupConstraintsIncoming()
+        }
+        else {
+            contentsLabel.textAlignment = .right
+            timeStampLabel.textAlignment = .right
+            setupConstraintsOutgoing()}
     }
     
     required init?(coder: NSCoder) {
